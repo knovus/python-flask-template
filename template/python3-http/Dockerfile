@@ -1,5 +1,5 @@
 FROM openfaas/of-watchdog:0.7.7 as watchdog
-FROM python:3.7-alpine
+FROM python:3.8-alpine
 
 COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
 RUN chmod +x /usr/bin/fwatchdog
@@ -22,6 +22,7 @@ WORKDIR /home/app/
 COPY index.py           .
 COPY requirements.txt   .
 USER root
+run pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 # Build the function directory and install any user-specified components
